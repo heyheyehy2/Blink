@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eafff5">
+<title>Blink</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 25px 18px;
+  background: #f5fbf8;
+  color: #20372e;
+  font-family: Arial, sans-serif;
+}
+main { max-width: 440px; margin: auto; }
+header { text-align: center; margin: 35px 0; }
+h1 { font-size: 42px; margin: 0; color: #26966b; }
+.subtitle { color: #789187; }
+.card {
+  background: white;
+  border-radius: 22px;
+  padding: 22px;
+  margin: 16px 0;
+  box-shadow: 0 5px 20px #173b2910;
+}
+button, select {
+  border: 0;
+  border-radius: 13px;
+  padding: 14px;
+  font-size: 16px;
+}
+button {
+  background: #39b982;
+  color: white;
+  width: 100%;
+  font-weight: bold;
+}
+select {
+  background: #edf8f2;
+  width: 100%;
+  margin: 12px 0;
+}
+.number { font-size: 35px; font-weight: bold; color: #26966b; }
+.muted { color: #82958c; }
+.achievement { padding: 10px 0; border-bottom: 1px solid #edf2ef; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Blink.</h1>
+  <p class="subtitle">A little reminder to care for your eyes.</p>
+</header>
+
+<div class="card">
+  <h2>Time to blink?</h2>
+  <p class="muted">Take a moment to blink naturally and relax your eyes.</p>
+  <button onclick="checkIn()">I did it ✓</button>
+  <p id="message" class="muted"></p>
+</div>
+
+<div class="card">
+  <h3>Reminder interval</h3>
+  <select id="interval" onchange="setIntervalTime()">
+    <option value="5">Every 5 minutes</option>
+    <option value="10">Every 10 minutes</option>
+  </select>
+  <button onclick="enableNotifications()">Enable notifications</button>
+  <p class="muted" id="status">Reminders work while the app is open.</p>
+</div>
+
+<div class="card">
+  <h3>Your progress</h3>
+  <p>Today's check-ins</p>
+  <div class="number" id="count">0</div>
+  <p>Current streak</p>
+  <div class="number"><span id="streak">0</span> days</div>
+  <p class="muted">Total check-ins: <span id="total">0</span></p>
+</div>
+
+<div class="card">
+  <h3>Achievements</h3>
+  <div id="achievements"></div>
+</div>
+</main>
+
+<script>
+const today = () => new Date().toLocaleDateString("en-CA");
+
+let data = JSON.parse(localStorage.getItem("blinkData") || "{}");
+data.days ||= [];
+data.total ||= 0;
+
+function save() {
+  localStorage.setItem("blinkData", JSON.stringify(data));
+}
+
+function checkIn() {
+  const day = today();
+  if (!data.days.includes(day)) data.days.push(day);
+  data.total++;
+  save();
+  update();
+  document.getElementById("message").textContent = "Nice work! Keep it up.";
+}
+
+function getStreak() {
+  let streak = 0;
+  let date = new Date();
+  while (data.days.includes(date.toLocaleDateString("en-CA"))) {
+    streak++;
+    date.setDate(date.getDate() - 1);
+  }
+  return streak;
+}
+
+function update() {
+  document.getElementById("count").textContent =
+    data.days.includes(today()) ? "1" : "0";
+  document.getElementById("streak").textContent = getStreak();
+  document.getElementById("total").textContent = data.total;
+
+  const achievements = [
+    ["First check-in", data.total >= 1],
+    ["10 check-ins", data.total >= 10],
+    ["20 check-ins", data.total >= 20],
+    ["3-day streak", getStreak() >= 3]
+  ];
+
+  document.getElementById("achievements").innerHTML =
+    achievements.map(a =>
+      `<div class="achievement">${a[1] ? "🏆" : "🔒"} ${a[0]}</div>`
+    ).join("");
+}
+
+let timer;
+
+function setIntervalTime() {
+  clearInterval(timer);
+  const minutes = Number(document.getElementById("interval").value);
+  timer = setInterval(() => {
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("Blink", {
+        body: "Take a moment to blink and relax your eyes."
+      });
+    }
+  }, minutes * 60 * 1000);
+}
+
+async function enableNotifications() {
+  if (!("Notification" in window)) {
+    document.getElementById("status").textContent =
+      "Notifications are not supported by this browser.";
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  document.getElementById("status").textContent =
+    permission === "granted" ? "Notifications enabled!" :
+    "Notification permission was not granted.";
+  setIntervalTime();
+}
+
+setIntervalTime();
+update();
+</script>
+</body>
+</html>
