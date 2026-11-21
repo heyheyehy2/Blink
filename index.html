@@ -10,155 +10,92 @@
 <style>
 * { box-sizing: border-box; }
 body {
-  margin: 0;
-  background: #f2fbf6;
-  color: #20382e;
-  font-family: Arial, sans-serif;
-  padding: 22px 17px 40px;
+  margin: 0; background: #f2fbf6; color: #20382e;
+  font-family: Arial, sans-serif; padding: 22px 17px 40px;
 }
 main { max-width: 460px; margin: auto; }
 header { padding: 20px 5px; }
 h1 { color: #26966b; font-size: 38px; margin: 0; }
 .subtitle { color: #8a9d93; margin-top: 7px; }
 .card {
-  background: white;
-  border-radius: 22px;
-  padding: 21px;
-  margin: 15px 0;
-  box-shadow: 0 5px 20px #173b2909;
+  background: white; border-radius: 22px; padding: 21px;
+  margin: 15px 0; box-shadow: 0 5px 20px #173b2909;
 }
 h2 { font-size: 19px; margin: 0 0 15px; }
 .muted { color: #91a198; font-size: 13px; }
-button, select {
-  border: 0;
-  border-radius: 13px;
-  padding: 14px;
-  font-size: 15px;
-}
 button {
-  background: #39b982;
-  color: white;
-  font-weight: bold;
-  width: 100%;
+  border: 0; border-radius: 13px; padding: 14px;
+  font-size: 15px; background: #39b982; color: white;
+  font-weight: bold; width: 100%;
 }
 button:active { opacity: .8; }
-select {
-  background: #edf8f2;
-  width: 100%;
-  margin-bottom: 12px;
-  color: #20382e;
-}
-.big {
-  font-size: 43px;
-  font-weight: bold;
-  color: #26966b;
-}
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.stat {
-  background: #f3faf6;
-  border-radius: 16px;
-  padding: 15px;
-}
+.big { font-size: 43px; font-weight: bold; color: #26966b; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat { background: #f3faf6; border-radius: 16px; padding: 15px; }
 .stat p { margin: 0 0 8px; color: #81958a; font-size: 12px; }
 .stat strong { font-size: 26px; color: #26966b; }
-.bar-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 13px 0;
-  font-size: 12px;
-}
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 13px 0; font-size: 12px; }
 .bar-row span { width: 28px; color: #80958a; }
-.bar {
-  flex: 1;
-  height: 9px;
-  background: #edf5f0;
-  border-radius: 20px;
-  overflow: hidden;
-}
-.fill {
-  height: 100%;
-  background: #39b982;
-  border-radius: 20px;
-}
-.achievement {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #edf3ef;
-}
+.bar { flex: 1; height: 9px; background: #edf5f0; border-radius: 20px; overflow: hidden; }
+.fill { height: 100%; background: #39b982; border-radius: 20px; }
+.achievement { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #edf3ef; }
 .achievement:last-child { border: 0; }
 .emoji { font-size: 25px; }
 .achievement small { color: #91a198; }
 .locked { opacity: .4; }
 .footer { text-align: center; color: #9aaa9f; font-size: 12px; padding: 20px; }
+input[type=range] { width: 100%; accent-color: #39b982; margin: 18px 0; }
+.interval-value { color: #26966b; font-size: 27px; font-weight: bold; }
 </style>
 </head>
 <body>
 <main>
 <header>
-  <h1>Blink.</h1>
-  <p class="subtitle">A little reminder to care for your eyes.</p>
+<h1>Blink.</h1>
+<p class="subtitle">A little reminder to care for your eyes.</p>
 </header>
 
 <div class="card">
-  <h2>Time to blink? 👀</h2>
-  <p class="muted">Take a moment to blink naturally and relax your eyes.</p>
-  <button onclick="checkIn()">I did it ✓</button>
-  <p id="message" class="muted"></p>
+<h2>Time to blink? 👀</h2>
+<p class="muted">Take a moment to blink naturally and relax your eyes.</p>
+<button onclick="checkIn()">I did it ✓</button>
+<p id="message" class="muted"></p>
 </div>
 
 <div class="card">
-  <h2>Your progress</h2>
-  <div class="stats">
-    <div class="stat">
-      <p>Today's check-ins</p>
-      <strong id="today">0</strong>
-    </div>
-    <div class="stat">
-      <p>Current streak 🔥</p>
-      <strong id="streak">0</strong>
-    </div>
-    <div class="stat">
-      <p>This week</p>
-      <strong id="week">0</strong>
-    </div>
-    <div class="stat">
-      <p>All-time</p>
-      <strong id="total">0</strong>
-    </div>
-  </div>
+<h2>Your progress</h2>
+<div class="stats">
+<div class="stat"><p>Today's check-ins</p><strong id="today">0</strong></div>
+<div class="stat"><p>Current streak 🔥</p><strong id="streak">0</strong></div>
+<div class="stat"><p>This week</p><strong id="week">0</strong></div>
+<div class="stat"><p>All-time</p><strong id="total">0</strong></div>
+</div>
 </div>
 
 <div class="card">
-  <h2>Weekly activity</h2>
-  <div id="chart"></div>
+<h2>Weekly activity</h2>
+<div id="chart"></div>
 </div>
 
 <div class="card">
-  <h2>Monthly statistics</h2>
-  <div class="big" id="month">0</div>
-  <p class="muted">Check-ins this month</p>
+<h2>Monthly statistics</h2>
+<div class="big" id="month">0</div>
+<p class="muted">Check-ins this month</p>
 </div>
 
 <div class="card">
-  <h2>Achievements 🏆</h2>
-  <div id="achievements"></div>
+<h2>Achievements 🏆</h2>
+<div id="achievements"></div>
 </div>
 
 <div class="card">
-  <h2>Reminders 🔔</h2>
-  <select id="interval" onchange="setReminder()">
-    <option value="5">Every 5 minutes</option>
-    <option value="10">Every 10 minutes</option>
-  </select>
-  <button onclick="enableNotifications()">Enable notifications</button>
-  <p class="muted" id="status">Reminders work while the app is open.</p>
+<h2>Reminders 🔔</h2>
+<p class="muted">Remind me every:</p>
+<div class="interval-value"><span id="intervalValue">5</span> min</div>
+<input id="interval" type="range" min="1" max="120" value="5" step="1">
+<button onclick="saveReminder()">Save interval</button>
+<p class="muted" id="status">Reminders work while the app is open.</p>
+<button onclick="enableNotifications()" style="margin-top:10px">Enable notifications</button>
 </div>
 
 <p class="footer">Blink — Remember to blink.</p>
@@ -166,10 +103,8 @@ select {
 
 <script>
 const today = () => {
-  const d = new Date();
-  return d.getFullYear() + "-" +
-    String(d.getMonth()+1).padStart(2,"0") + "-" +
-    String(d.getDate()).padStart(2,"0");
+const d = new Date();
+return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 };
 
 let data = JSON.parse(localStorage.getItem("blinkData") || "{}");
@@ -178,121 +113,118 @@ data.total ||= 0;
 data.counts ||= {};
 
 function save() {
-  localStorage.setItem("blinkData", JSON.stringify(data));
+localStorage.setItem("blinkData",JSON.stringify(data));
 }
 
 function checkIn() {
-  const day = today();
-  data.days = [...new Set(data.days)];
-  if (!data.days.includes(day)) data.days.push(day);
-  data.counts[day] = (data.counts[day] || 0) + 1;
-  data.total++;
-  save();
-  update();
-  document.getElementById("message").textContent =
-    "Nice work! Keep it up 🌿";
+const day=today();
+data.days=[...new Set(data.days)];
+if(!data.days.includes(day)) data.days.push(day);
+data.counts[day]=(data.counts[day]||0)+1;
+data.total++;
+save();
+update();
+document.getElementById("message").textContent="Nice work! Keep it up 🌿";
 }
 
 function dateKey(date) {
-  return date.getFullYear() + "-" +
-    String(date.getMonth()+1).padStart(2,"0") + "-" +
-    String(date.getDate()).padStart(2,"0");
+return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
 }
 
 function streak() {
-  let n = 0;
-  let d = new Date();
-  while (data.days.includes(dateKey(d))) {
-    n++;
-    d.setDate(d.getDate()-1);
-  }
-  return n;
+let n=0,d=new Date();
+while(data.days.includes(dateKey(d))) {
+n++;
+d.setDate(d.getDate()-1);
+}
+return n;
 }
 
 function update() {
-  const now = new Date();
-  const key = today();
+const key=today();
+document.getElementById("today").textContent=data.counts[key]||0;
+document.getElementById("streak").textContent=streak();
+document.getElementById("total").textContent=data.total;
 
-  document.getElementById("today").textContent =
-    data.counts[key] || 0;
-  document.getElementById("streak").textContent = streak();
-  document.getElementById("total").textContent = data.total;
+let week=0,chart="";
+for(let i=6;i>=0;i--) {
+let d=new Date();
+d.setDate(d.getDate()-i);
+let count=data.counts[dateKey(d)]||0;
+week+=count;
+let height=Math.min(count*12,100);
+chart+=`<div class="bar-row">
+<span>${d.toLocaleDateString("en",{weekday:"short"})}</span>
+<div class="bar"><div class="fill" style="width:${height}%"></div></div>
+<b>${count}</b></div>`;
+}
+document.getElementById("week").textContent=week;
+document.getElementById("chart").innerHTML=chart;
 
-  let week = 0;
-  let chart = "";
-  for (let i=6; i>=0; i--) {
-    let d = new Date();
-    d.setDate(d.getDate()-i);
-    let k = dateKey(d);
-    let count = data.counts[k] || 0;
-    week += count;
-    let height = Math.min(count*12,100);
-    chart += `<div class="bar-row">
-      <span>${d.toLocaleDateString("en",{weekday:"short"})}</span>
-      <div class="bar"><div class="fill" style="width:${height}%"></div></div>
-      <b>${count}</b>
-    </div>`;
-  }
-  document.getElementById("week").textContent = week;
-  document.getElementById("chart").innerHTML = chart;
+let month=0;
+for(let k in data.counts) if(k.startsWith(key.slice(0,7))) month+=data.counts[k];
+document.getElementById("month").textContent=month;
 
-  let month = 0;
-  for (let k in data.counts) {
-    if (k.startsWith(key.slice(0,7))) month += data.counts[k];
-  }
-  document.getElementById("month").textContent = month;
-
-  const achievements = [
-    ["🌱","First step","Complete your first check-in",data.total>=1],
-    ["⭐","10 check-ins","Reach 10 total check-ins",data.total>=10],
-    ["🌟","50 check-ins","Reach 50 total check-ins",data.total>=50],
-    ["💎","100 check-ins","Reach 100 total check-ins",data.total>=100],
-    ["🔥","3-day streak","Stay active for 3 days",streak()>=3],
-    ["🏅","7-day streak","Stay active for 7 days",streak()>=7],
-    ["👑","30-day streak","Stay active for 30 days",streak()>=30],
-    ["🌳","500 check-ins","Reach 500 total check-ins",data.total>=500]
-  ];
-
-  document.getElementById("achievements").innerHTML =
-    achievements.map(a =>
-      `<div class="achievement ${a[3]?"":"locked"}">
-        <span class="emoji">${a[0]}</span>
-        <div><b>${a[1]}</b><br><small>${a[2]}</small></div>
-      </div>`
-    ).join("");
+const achievements=[
+["🌱","First step","Complete your first check-in",data.total>=1],
+["⭐","10 check-ins","Reach 10 total check-ins",data.total>=10],
+["🌟","50 check-ins","Reach 50 total check-ins",data.total>=50],
+["💎","100 check-ins","Reach 100 total check-ins",data.total>=100],
+["🔥","3-day streak","Stay active for 3 days",streak()>=3],
+["🏅","7-day streak","Stay active for 7 days",streak()>=7],
+["👑","30-day streak","Stay active for 30 days",streak()>=30],
+["🌳","500 check-ins","Reach 500 total check-ins",data.total>=500]
+];
+document.getElementById("achievements").innerHTML=achievements.map(a=>
+`<div class="achievement ${a[3]?"":"locked"}">
+<span class="emoji">${a[0]}</span>
+<div><b>${a[1]}</b><br><small>${a[2]}</small></div></div>`).join("");
 }
 
 let timer;
-function setReminder() {
-  clearInterval(timer);
-  const minutes = Number(document.getElementById("interval").value);
-  timer = setInterval(() => {
-    if ("Notification" in window &&
-        Notification.permission === "granted") {
-      new Notification("Blink 👀", {
-        body:"Take a moment to blink naturally and relax your eyes."
-      });
-    }
-  }, minutes*60000);
+let savedInterval=Number(localStorage.getItem("blinkInterval")||5);
+const slider=document.getElementById("interval");
+slider.value=savedInterval;
+document.getElementById("intervalValue").textContent=savedInterval;
+
+slider.addEventListener("input",()=>{
+document.getElementById("intervalValue").textContent=slider.value;
+});
+
+function startReminder() {
+clearInterval(timer);
+const minutes=savedInterval;
+timer=setInterval(()=>{
+if("Notification" in window && Notification.permission==="granted") {
+new Notification("Blink 👀",{
+body:"Take a moment to blink naturally and relax your eyes."
+});
+}
+},minutes*60000);
+}
+
+function saveReminder() {
+savedInterval=Number(slider.value);
+localStorage.setItem("blinkInterval",savedInterval);
+startReminder();
+document.getElementById("status").textContent="Saved! Every "+savedInterval+" minutes.";
 }
 
 async function enableNotifications() {
-  if (!("Notification" in window)) {
-    document.getElementById("status").textContent =
-      "Notifications are not supported.";
-    return;
-  }
-  const p = await Notification.requestPermission();
-  document.getElementById("status").textContent =
-    p==="granted" ? "Notifications enabled!" :
-    "Permission was not granted.";
-  setReminder();
+if(!("Notification" in window)) {
+document.getElementById("status").textContent="Notifications are not supported.";
+return;
+}
+const p=await Notification.requestPermission();
+document.getElementById("status").textContent=
+p==="granted"?"Notifications enabled!":"Permission was not granted.";
+startReminder();
 }
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js");
+if("serviceWorker" in navigator) {
+navigator.serviceWorker.register("./sw.js");
 }
-setReminder();
+startReminder();
 update();
 </script>
 </body>
